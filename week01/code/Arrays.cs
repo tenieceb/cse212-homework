@@ -1,3 +1,5 @@
+using System.Data;
+using System.Globalization;
 using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
@@ -42,5 +44,9 @@ public static class Arrays
         List<int> shiftThis = data.GetRange(0, data.Count - amount);
         data.RemoveRange(0,data.Count - amount);
         data.AddRange(shiftThis);
+        foreach (int i in data){
+            Console.WriteLine($"{i}");
+        }
     }
+
 }
