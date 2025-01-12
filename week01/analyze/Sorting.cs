@@ -14,4 +14,6 @@
             }
         }
     }
+
+    // Due to the nested loop it is O(n^2)
 }
