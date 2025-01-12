@@ -1,3 +1,6 @@
+using Microsoft.VisualBasic;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+
 public static class Arrays
 {
     /// <summary>
@@ -8,13 +11,20 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        //////// My Plan ////////
+        // Start by creating an array with the assigned length of the length provided
+        // iterate through the new array and use a nested for withibn that to multiply the "number" beginning with 1 up to the "length" assigning the "results" as it iterates
+        double[] multiples = new double[length];
+        for (int i = 0; i < length; i++){
+            for (double j=1; i<length; j++){
+                multiples[i]= j*number;
+            }
+        }
 
-        return []; // replace this return statement with your own
+        return multiples;
     }
+
+    
 
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 
@@ -25,9 +35,12 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        //////// My Plan ////////
+        // Using data.GetRange(0, data.Count - amount) to select all of the data that will need to be shifted and assign it to a new <List> 
+        // Next, remove the same range from the data that we just assigned to a new <List> using data.RemoveRange(0, data.Count - amount)
+        // Lastly, use data.AddRange(new <List>) to add the list we created with GetRange to the end of the data list which will have shifted the values to the right "amount" of times.
+        List<int> shiftThis = data.GetRange(0, data.Count - amount);
+        data.RemoveRange(0,data.Count - amount);
+        data.AddRange(shiftThis);
     }
 }
