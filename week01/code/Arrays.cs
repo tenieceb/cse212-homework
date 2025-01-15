@@ -15,14 +15,12 @@ public static class Arrays
     {
         //////// My Plan ////////
         // Start by creating an array with the assigned length of the length provided
-        // iterate through the new array and use a nested for withibn that to multiply the "number" beginning with 1 up to the "length" assigning the "results" as it iterates
+        // iterate through the new array multiplying the number by the next multiple (1,2,3, etc)
         double[] multiples = new double[length];
-        for (int i = 0; i < length; i++){
-            for (double j=1; i<length; j++){
-                multiples[i]= j*number;
+        for (int i = 0; i < length; i++)
+            {
+                multiples[i] = number * (i + 1);
             }
-        }
-
         return multiples;
     }
 
