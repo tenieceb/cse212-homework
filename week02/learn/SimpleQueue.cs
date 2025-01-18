@@ -10,7 +10,8 @@
         queue.Enqueue(100);
         var value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found:
+        // Defect(s) Found: Off by one error in Dequeue()
+        // Fix(es): the queue starts at index[0] and that is where the dequeue need to pull from. not index[1].
 
         Console.WriteLine("------------");
 
@@ -28,7 +29,8 @@
         Console.WriteLine(value);
         value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found: 
+        // Defect(s) Found: did not list the values in the order specified due to enqueue adding each new thing to the beginning of list
+        // Fix(es): The values would need to be added to the end to queue and dequeue appropriately
 
         Console.WriteLine("------------");
 
@@ -54,7 +56,7 @@
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        _queue.Add(value);
     }
 
     /// <summary>
@@ -66,8 +68,8 @@
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
