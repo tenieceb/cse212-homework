@@ -4,31 +4,64 @@
 /// </summary>
 public class CustomerService {
     public static void Run() {
-        // Example code to see what's in the customer service queue:
-        // var cs = new CustomerService(10);
-        // Console.WriteLine(cs);
-
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Add a customer then serve the customer.
+        // Expected Result: Display customer in queue.
+
         Console.WriteLine("Test 1");
+        var cs = new CustomerService(3);
+        cs.AddNewCustomer();
+        Console.WriteLine(cs);
+        cs.ServeCustomer();
 
-        // Defect(s) Found: 
+        // // Defect(s) Found: ServeCustomer() was deleting customer prior to serving.
+        // // Fix(es): Moved _queue.RemoveAt(0) to a line after serving the customer.
+
+
 
         Console.WriteLine("=================");
-
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Multiple customers enter the queue.
+        // Expected Result: Customers are helped in order and one after another.
         Console.WriteLine("Test 2");
-
-        // Defect(s) Found: 
+        cs = new CustomerService(3);
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.ServeCustomer();
+        cs.ServeCustomer();       
+        cs.ServeCustomer();
+        // Defect(s) Found: none
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: Que is full, but there are more customers
+        // Expected Result: Customers are told the queue is full.
+        Console.WriteLine("Test 3");
+        cs = new CustomerService(2);
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        Console.WriteLine(cs);
+        // // Defect(s) Found: Off by one error. 
+        // // Fix(es) :  `if (_queue.Count > _maxSize)` changed to  `if (_queue.Count >= _maxSize) `
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: Queue is empty, program attempts to serve next customer.
+        // Expected Result: Program displays there is no customers
+        Console.WriteLine("Test 4");
+        cs = new CustomerService(2);
+        Console.WriteLine(cs);
+        cs.ServeCustomer();
+        // Defect(s)  Found: There is no check for customers.
+        // Fix(es): Check the queue for customers. If no customers, show an error.
+
     }
 
     private readonly List<Customer> _queue = new();
@@ -57,7 +90,7 @@ public class CustomerService {
         private string Problem { get; }
 
         public override string ToString() {
-            return $"{Name} ({AccountId})  : {Problem}";
+            return $"{Name} ({AccountId}): {Problem}";
         }
     }
 
@@ -67,7 +100,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +121,13 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count > 0){
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);}
+        else {
+            Console.WriteLine("There are no customers in the queue to serve.");
+        }
     }
 
     /// <summary>
