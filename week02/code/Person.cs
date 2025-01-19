@@ -3,10 +3,11 @@ public class Person
     public readonly string Name;
     public int Turns { get; set; }
 
-    internal Person(string name, int turns)
+    internal Person(string name, int starterturns)
     {
         Name = name;
-        Turns = turns;
+        Turns = starterturns;
+
     }
 
     public override string ToString()
