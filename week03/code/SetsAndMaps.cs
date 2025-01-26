@@ -123,7 +123,7 @@ public static class SetsAndMaps
         return false;
     }
 
-    
+
     /// <summary>
     /// This function will read JSON (Javascript Object Notation) data from the 
     /// United States Geological Service (USGS) consisting of earthquake data.
@@ -150,11 +150,17 @@ public static class SetsAndMaps
 
         var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
 
-        // TODO Problem 5:
-        // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
-        // on those classes so that the call to Deserialize above works properly.
-        // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
-        // 3. Return an array of these string descriptions.
-        return [];
+        
+        var dailySummaryList = new List<string>();
+        foreach (var feature in featureCollection.Features)
+        {
+            var place = feature.Properties.Place;
+            var mag = feature.Properties.Mag;
+            var summary = $"{place} - Mag {mag}";
+            dailySummaryList.Add(summary);
+        }
+        string[] dailySummary = dailySummaryList.ToArray();
+
+        return dailySummary;
     }
 }
