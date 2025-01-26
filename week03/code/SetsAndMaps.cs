@@ -95,32 +95,35 @@ public static class SetsAndMaps
         {
             return false;
         }
-        var dictionary1 = new Dictionary<char,int>();
-        foreach (char letter1 in word1){
-            if (!dictionary1.ContainsKey(letter1))
-                {
-                    dictionary1.Add(letter1, 1);
-                }
+        var dict1 = new Dictionary<char,int>();
+        for (int i=0; i < word1.Length; i++)
+        {
+            char letter = word1[i];
+            char letter2 = word2[i];
+            if (!dict1.ContainsKey(letter))
+            {
+                dict1.Add(letter,1);
+            }
+            else
+            {
+                dict1[letter] ++;
+            }
+            if (dict1.ContainsKey(letter2))
+            {
+                dict1[letter2] --;
+            }
             else 
             {
-                dictionary1[letter1] += 1;
+                dict1[letter2] = -1;
             }
         }
-        foreach (char letter2 in word2)
-        {
-            if (!dictionary1.ContainsKey(letter2))
-                {
-                    return false;
-                }
-            dictionary1[letter2] --;
-            if(dictionary1[letter2] <0)
-            { 
-                return false;
-            }
+        if (dict1.Values.All(i => i == 0)){
+            return true;
         }
-        return true;
+        return false;
     }
 
+    
     /// <summary>
     /// This function will read JSON (Javascript Object Notation) data from the 
     /// United States Geological Service (USGS) consisting of earthquake data.
