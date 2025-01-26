@@ -1,4 +1,6 @@
+using System.Security.Cryptography;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
 
 public static class SetsAndMaps
 {
@@ -21,9 +23,22 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var wordSet = new HashSet<string>(words);
+        var pairs = new HashSet<string>{};
+        foreach (string word in words)
+        {
+            string reversed = string.Empty;
+            for (int i = word.Length - 1; i >= 0; i--)
+                {
+                    reversed += word[i];
+                }
+            if (wordSet.Contains(reversed) && !pairs.Contains(reversed + "&" + word) && word != reversed){
+                pairs.Add(word + "&" + reversed);
+            }
+        }
+        return pairs.ToArray();
     }
+
 
     /// <summary>
     /// Read a census file and summarize the degrees (education)
@@ -42,7 +57,15 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            if (!degrees.ContainsKey(degree))
+                {
+                    degrees.Add(degree, 1);
+                }
+            else 
+            {
+                degrees[degree] += 1;
+            }
         }
 
         return degrees;
@@ -66,8 +89,36 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+        var dictionary1 = new Dictionary<char,int>();
+        foreach (char letter1 in word1){
+            if (!dictionary1.ContainsKey(letter1))
+                {
+                    dictionary1.Add(letter1, 1);
+                }
+            else 
+            {
+                dictionary1[letter1] += 1;
+            }
+        }
+        foreach (char letter2 in word2)
+        {
+            if (!dictionary1.ContainsKey(letter2))
+                {
+                    return false;
+                }
+            dictionary1[letter2] --;
+            if(dictionary1[letter2] <0)
+            { 
+                return false;
+            }
+        }
+        return true;
     }
 
     /// <summary>

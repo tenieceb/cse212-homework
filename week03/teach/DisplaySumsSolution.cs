@@ -40,7 +40,7 @@
             // I have previously seen a number that will sum with n 
             // to equal 10. Print out that pair
             if (valuesSeen.Contains(10 - n))
-                Console.WriteLine($"{n} {10-n}");
+                Console.WriteLine($"{n} {10 - n}");
             // Add this number to the values_seen set
             valuesSeen.Add(n);
         }
