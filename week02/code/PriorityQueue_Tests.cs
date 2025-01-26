@@ -41,17 +41,17 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-        // Scenario: The item with the highest priority is in the center of the queue.
-        // Expected Result: The system will dequeue the item regardless of it's spot within the system.
-        // Defect(s) Found: The system did not remove the item from the list. Added "_queue.RemoveAt(highPriorityIndex)"
+        // Scenario: There are two items with the same priority
+        // Expected Result: The program will dequeue the first item of the highest priority
+        // Defect(s) Found: The system did not remove the item from the list in order of what item was added first. 
 
     public void TestPriorityQueue_3()
     {
 
 
         var priorityQueue = new PriorityQueue();
-        priorityQueue.Enqueue("Item 1",3);
-        priorityQueue.Enqueue("Item 2",4);
+        priorityQueue.Enqueue("Item 1", 3);
+        priorityQueue.Enqueue("Item 2", 4);
         priorityQueue.Enqueue("Item 3", 1);
         priorityQueue.Enqueue("Item 4", 4);
         Console.WriteLine(priorityQueue);
