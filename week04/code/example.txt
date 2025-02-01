@@ -1,0 +1,105 @@
+1. Nullable Value Types (? after a type)
+Allows value types (int, double, bool, etc.) to store null.
+Normally, value types cannot be null, but adding ? makes them nullable.
+Example
+csharp
+Copy
+Edit
+int? number = null; // Allowed because of the '?'
+number = 10;        // Also valid
+Without ?, this would not compile:
+
+csharp
+Copy
+Edit
+int number = null; // ERROR: int cannot be null
+Checking for Null
+csharp
+Copy
+Edit
+if (number.HasValue) 
+{
+    Console.WriteLine(number.Value); // Safely get the value
+}
+else
+{
+    Console.WriteLine("Number is null");
+}
+OR, using null-coalescing (??):
+
+csharp
+Copy
+Edit
+Console.WriteLine(number ?? 0); // Prints 0 if number is null
+2. Null Conditional Operator (?.)
+Prevents NullReferenceException by safely accessing properties/methods.
+If the left side is null, the expression short-circuits and returns null.
+Example
+csharp
+Copy
+Edit
+string? name = null;
+Console.WriteLine(name?.Length); // No error, prints null instead
+Without ?., this would crash:
+
+csharp
+Copy
+Edit
+Console.WriteLine(name.Length); // ERROR: NullReferenceException!
+With Method Calls
+csharp
+Copy
+Edit
+Person? person = null;
+Console.WriteLine(person?.GetName()); // Doesn't crash if person is null
+3. Null-Coalescing Operator (??)
+Provides a default value if something is null.
+Example
+csharp
+Copy
+Edit
+string? message = null;
+string displayMessage = message ?? "Default message"; // If null, use fallback
+Console.WriteLine(displayMessage); // Output: "Default message"
+4. Null-Coalescing Assignment (??=)
+Assigns a value only if the variable is null.
+Example
+csharp
+Copy
+Edit
+int? number = null;
+number ??= 5; // Only assigns 5 if number is null
+Console.WriteLine(number); // Output: 5
+5. Ternary Operator (? :)
+A shorthand for if-else.
+Example
+csharp
+Copy
+Edit
+int x = 10;
+string result = (x > 5) ? "Greater" : "Smaller";
+Console.WriteLine(result); // Output: "Greater"
+Summary
+? Usage	Meaning
+int?	Nullable value type (null allowed)
+?.	Null-safe member access
+??	Null-coalescing (provides a default value)
+??=	Null-coalescing assignment
+? :	Ternary (conditional) operator
+C# loves using ? for null safety and shorthand expressions. Which one were you wondering about? 😃
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
