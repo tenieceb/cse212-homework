@@ -1,0 +1,14 @@
+    static int RecursionExample(int n)
+    {
+        // sum all numbers from 1 to n
+        //base case:
+        if (n == 1)
+        {
+            return 1;
+        }
+        //smaller version:
+
+
+            return n + RecursionExample(n-1);
+
+    }
